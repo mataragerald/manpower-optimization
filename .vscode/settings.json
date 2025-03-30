@@ -1,0 +1,14 @@
+{
+    "python.defaultInterpreterPath": ".venv/Scripts/python.exe",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "args": ["-NoExit", "-Command", "& .venv\\Scripts\\Activate"]
+        },
+        "Command Prompt": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": ["/k", ".venv\\Scripts\\activate"]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

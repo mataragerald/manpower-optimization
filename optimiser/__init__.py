@@ -203,8 +203,22 @@ class WeightedHungarianOptimizer:
         # 1. Worker Availability Cost
         if worker_id not in self.worker_availability:
             costs["availability"] = 100  # High cost for unavailable worker
-        # More sophisticated availability check could be implemented here
-        # For example, checking if worker has enough available hours in the required timeframe
+        # Check if the worker has enough available hours in the required timeframe
+        if task_id in self.workhours_needed:
+            hours_needed = self.workhours_needed[task_id]
+            available_hours = 0
+            
+            if worker_id in self.worker_availability:
+            for day, times in self.worker_availability[worker_id].items():
+                start_time, end_time = times
+                available_hours += max(0, end_time - start_time)
+            
+            if available_hours < hours_needed:
+            costs["availability"] = 100  # High cost for insufficient availability
+            else:
+            costs["availability"] = max(0, 10 - available_hours)  # Lower cost for more availability
+        else:
+            costs["availability"] = 50  # Default cost if no workhours are specified
         
         # 2. Skill Matching Cost
         if task_id in self.task_requirements and worker_id in self.worker_skills:
